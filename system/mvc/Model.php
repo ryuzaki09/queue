@@ -9,7 +9,6 @@ class Model
     public $model;
     private $where;
     private $limit;
-    // private $from;
     private $join;
     private $order;
     private $set;
@@ -17,7 +16,6 @@ class Model
     private $select = "SELECT *";
     private $custom_query = null;
     private $update;
-    // private $pdo;
     protected $table;
 
     public function __construct()

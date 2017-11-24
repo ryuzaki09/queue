@@ -3,30 +3,27 @@ namespace System;
 
 class Router 
 {
-	private $routes;
+    private $routes;
 
-	const DEFAULT_URI = "/";
-	const DEFAULT_ROUTE = "Home@Index";
+    const DEFAULT_URI = "/";
+    const DEFAULT_ROUTE = "Home@Index";
 
     public function __construct()
     {
-		$this->routes = include dirname(__DIR__)."/src/routes.php";
-	}
+        $this->routes = include dirname(__DIR__)."/src/routes.php";
+    }
 
     public function Index()
     {
-		$req_method = strtolower($_SERVER['REQUEST_METHOD']);
-		$request_uri = $_SERVER['REQUEST_URI'];
-        // error_log("req uri: ".$request_uri);
-        $query_string = strstr($request_uri, "?");
-        // error_log("query string: ".$query_string);
-        // error_log("get: ".var_export($_GET, true));
+        $req_method = strtolower($_SERVER['REQUEST_METHOD']);
+        $request_uri = $_SERVER['REQUEST_URI'];
+
         if (!empty($_GET)) {
             $query_part = strstr($request_uri, "?", true);
         }
 
         //check routes
-		if (isset($this->routes[$req_method]) && !empty($this->routes[$req_method])){
+        if (isset($this->routes[$req_method]) && !empty($this->routes[$req_method])){
             foreach($this->routes[$req_method] as $uri => $route) {
                 if (strpos($uri, "?(:any") !== false) {
                     $route_part = strstr($uri, "?", true);
@@ -41,18 +38,18 @@ class Router
                     break;
                 }
             }
-		}
+        }
 
         //check if request uri is default uri
-		if ($request_uri == self::DEFAULT_URI){
+        if ($request_uri == self::DEFAULT_URI){
             $req_route = self::DEFAULT_ROUTE;
-		}
+        }
 
         //check if req_route is set
-		if (!isset($req_route)){
-			echo "No Route!";
-			exit;
-		}
+        if (!isset($req_route)){
+            echo "No Route!";
+            exit;
+        }
 
         //begin to call the class and method
         try {
@@ -73,6 +70,6 @@ class Router
 
 
 
-	}
+    }
 
 }
