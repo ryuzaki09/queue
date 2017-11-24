@@ -14,7 +14,7 @@ class Home extends BaseController
     public function Index()
     {
         echo "Welcome";
-	}
+    }
 
 
 
